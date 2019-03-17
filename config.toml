@@ -1,0 +1,25 @@
+[Redis]
+Address         = "localhost:6379" # docker_deplopy->"redis" local_dev->"localhost"
+Password        = ""
+Database        = 6
+ConnectTimeout  = "2s"
+ReadTimeout     = "3s"
+WriteTimeout    = "3s"
+
+[RedisPool]
+MaxIdle         = 88                # Maximum number of idle connections in the pool
+MaxActive       = 1024              # Maximum number of connections allocated by the pool at a given time
+IdleTimeout     = "10s"             # Close connections after remaining idle for this duration
+Wait            = true
+MaxConnLifetime = "30s"             # Close connections older than this duration
+
+[ProxyPool]
+Address         = "0.0.0.0:6001"    # listened by server
+MinScore        = 0                 # used by sorted set
+MaxScore        = 100               # used ....
+DefaultScore    = 50                # used ...
+RedisZKey       = "uproxy"          # used ...
+ScanInterval    = "30m"             # used by scheduler, for validating proxies
+ScrapeInterval  = "2h"              # used ..., for geting proxies to store into redis
+IncrAfterScan   = 20
+DecrAfterScan   = 5

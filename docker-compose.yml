@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  uproxy:
+    build: .
+    image: netflame/uproxy
+    container_name: netflame-uproxy
+    ports:
+      - 6001:6001
+    working_dir: 
+      /uproxy
+    volumes:
+      # - ./config.toml:./config.toml:ro
+      - ./sites.toml:/uproxy/sites.toml
+    depends_on:
+      - redis
+    networks: 
+      - netflame-net
+  redis:
+    image: redis:5.0.2-alpine3.8
+    container_name: netflame-redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /data
+    networks:
+      - netflame-net
+
+networks:
+  netflame-net:
+    driver: bridge
+  
