@@ -31,7 +31,7 @@ func (rpl *redisPL) processItem(i item, ch chan<- miniChan) (err error) {
 	}()
 
 	if err = checkItem(i); err != nil {
-		miniLog.error("(pipelines.go:processItem) Invalid: ", i.String())
+		// miniLog.error("(pipelines.go:processItem) Invalid: ", i.String())		// too many logs
 		return
 	}
 

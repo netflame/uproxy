@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/julienschmidt/httprouter"
@@ -30,7 +31,7 @@ func (h *handler) All(w http.ResponseWriter, r *http.Request, _ httprouter.Param
 	if resp, err := h.c.all(config.PPool.RedisZKey); err != nil {
 		fmt.Fprintf(w, "Got error: %s\n", err)
 	} else {
-		fmt.Fprintf(w, "All available proxies:\n%s", strings.Join(resp, "\n"))
+		fmt.Fprintf(w, strings.Join(resp, "\n"))
 	}
 }
 
@@ -38,7 +39,7 @@ func (h *handler) Random(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 	if resp, err := h.c.random(config.PPool.RedisZKey); err != nil {
 		fmt.Fprintf(w, "Got error: %s\n", err)
 	} else {
-		fmt.Fprintf(w, "Random proxy: %s", resp)
+		fmt.Fprintf(w, resp)
 	}
 }
 
@@ -46,6 +47,6 @@ func (h *handler) Size(w http.ResponseWriter, r *http.Request, _ httprouter.Para
 	if resp, err := h.c.size(config.PPool.RedisZKey); err != nil {
 		fmt.Fprintf(w, "Got error: %s\n", err)
 	} else {
-		fmt.Fprintf(w, "Size of Proxy Pool: %d", resp)
+		fmt.Fprintf(w, strconv.Itoa(resp))
 	}
 }

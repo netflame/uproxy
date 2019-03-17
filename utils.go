@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	_ "regexp"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -156,7 +157,7 @@ func checkProxyURL(pURL string) (err error) {
 	}
 	resp, err := c.Get("https://httpbin.org/ip")
 	if err != nil {
-		miniLog.error("(utils.go:checkProxyURL)  ", pURL, "->", err)
+		// miniLog.error("(utils.go:checkProxyURL)  ", pURL, "->", err)
 		return
 	}
 	defer resp.Body.Close()
@@ -171,9 +172,14 @@ func checkProxyURL(pURL string) (err error) {
 		return
 	}
 
-	if hbIP.Origin != pURL {
-		err = fmt.Errorf("Expected %s, but Caught %s", pURL, hbIP.Origin)
+	if strings.TrimSpace(hbIP.Origin) == "" {
+		return fmt.Errorf("Origin is null")
 	}
+
+	// miniLog.info(hbIP.Origin)
+	// if hbIP.Origin != pURL {
+	// err = fmt.Errorf("Expected %s, but Caught %s", pURL, hbIP.Origin)
+	// }
 
 	return
 }
