@@ -6,7 +6,7 @@ services:
     image: netflame/uproxy
     container_name: netflame-uproxy
     ports:
-      - 6001:6001
+      - '6001:6001'
     working_dir: 
       /uproxy
     volumes:
@@ -16,17 +16,22 @@ services:
       - redis
     networks: 
       - netflame-net
+
   redis:
     image: redis:5.0.2-alpine3.8
-    container_name: netflame-redis
+    container_name: redis
     ports:
-      - 6379:6379
+      - '6379:6379'
     volumes:
-      - /data
+      - redis-data:/data
     networks:
       - netflame-net
 
 networks:
   netflame-net:
+    name: netflame-net
     driver: bridge
-  
+
+volumes:
+  redis-data:
+    name: redis-data
