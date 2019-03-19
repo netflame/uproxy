@@ -11,7 +11,7 @@ COPY ./config.toml .
 COPY ./sites.toml .
 COPY ./docker-entrypoint.sh .
 
-RUN sed -i "s#localhost:#redis:#" ./config.toml
+# RUN sed -i "s#localhost:#redis:#" ./config.toml
 
 EXPOSE 6001
 

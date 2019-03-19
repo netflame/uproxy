@@ -1,5 +1,5 @@
 [Redis]
-Address         = "localhost:6379" # docker_deplopy->"redis" local_dev->"localhost"
+Address         = "redis:6379"      # in local dev, redis can be defined in /etc/hosts
 Password        = ""
 Database        = 6
 ConnectTimeout  = "2s"

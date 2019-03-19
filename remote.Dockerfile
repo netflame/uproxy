@@ -10,7 +10,6 @@ FROM scratch
 WORKDIR /uproxy
 COPY --from=builder /build/uproxy ./
 COPY ./*toml ./
-RUN sed -i "s#localhost:#redis:#" ./config.toml
 
 EXPOSE 6001
 ENTRYPOINT [ "./uproxy" ]
