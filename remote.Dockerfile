@@ -8,8 +8,8 @@ RUN apk add --no-cache git \
 
 FROM scratch
 WORKDIR /uproxy
-COPY --from=builder /build/uproxy .
-COPY ./*toml .
+COPY --from=builder /build/uproxy ./
+COPY ./*toml ./
 
 EXPOSE 6001
 ENTRYPOINT [ "./uproxy" ]
